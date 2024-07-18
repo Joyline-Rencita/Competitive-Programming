@@ -48,7 +48,7 @@ The matrix is:
 1 1 1
 The total sum will be (1+ 1 + 1) + (1 + 1) = 5.
 
-Solution : 
+SOLUTION : 
 
 import java.io.*;
 import java.util.*;
@@ -74,6 +74,11 @@ public class Solution {
         // Sum of the secondary diagonal (i, N-1-i)
         for (int i = 0; i < N; i++) {
             sum += 1; // Similarly, add 1 N times
+        }
+        
+        // Adjust for the duplicate middle element if N is odd
+        if (N % 2 == 1) {
+            sum -= 1; // Subtract the duplicate middle element once
         }
         
         // Output the total sum
