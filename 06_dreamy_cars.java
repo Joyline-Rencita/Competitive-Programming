@@ -38,34 +38,39 @@ The xor of all the combinations possible is:
 SOLUTION : 
 
 class Solution {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
+        // Read number of cars
         int n = scanner.nextInt();
         int[] features = new int[n];
         
+        // Read the features of the cars
         for (int i = 0; i < n; i++) {
             features[i] = scanner.nextInt();
         }
-        int result = 0;        // Initialize result to 0
-
-        // Iterate over all 32 bits positions (because given constraints are up to 10^4 which is within 32-bit range)
-        for (int bit = 0; bit < 32; bit++) {
+        
+        // Initialize result to 0
+        int result = 0;
+        
+        // Iterate over all bit positions (assuming 0 <= fi <= 10000, hence 14 bits max)
+        for (int bit = 0; bit < 14; bit++) {
             int count = 0;
             
-            // Count how many numbers have the current bit set
+            // Count the number of elements with the current bit set
             for (int i = 0; i < n; i++) {
                 if ((features[i] & (1 << bit)) != 0) {
                     count++;
                 }
             }
-            // If the count of numbers with the current bit set is odd,
-            // it means the final combination will have this bit set
+            
+            // Each bit position contributes to the final result if its count is odd
             if (count % 2 != 0) {
                 result |= (1 << bit);
             }
         }
+        
+        // Print the final result
         System.out.println(result);
     }
 }
