@@ -37,40 +37,41 @@ The xor of all the combinations possible is:
 
 SOLUTION : 
 
-class Solution {
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
         // Read number of cars
         int n = scanner.nextInt();
-        int[] features = new int[n];
         
-        // Read the features of the cars
+        // Read the array of car features
+        int[] features = new int[n];
         for (int i = 0; i < n; i++) {
             features[i] = scanner.nextInt();
         }
         
-        // Initialize result to 0
-        int result = 0;
+        // Calculate the total XOR of all subsets
+        int totalXOR = 0;
         
-        // Iterate over all bit positions (assuming 0 <= fi <= 10000, hence 14 bits max)
-        for (int bit = 0; bit < 14; bit++) {
-            int count = 0;
-            
-            // Count the number of elements with the current bit set
-            for (int i = 0; i < n; i++) {
-                if ((features[i] & (1 << bit)) != 0) {
-                    count++;
-                }
-            }
-            
-            // Each bit position contributes to the final result if its count is odd
-            if (count % 2 != 0) {
-                result |= (1 << bit);
+        // Iterate through all subsets
+        for (int start = 0; start < n; start++) {
+            int currentXOR = 0;
+            // Calculate XOR for subsets starting from index 'start'
+            for (int end = start; end < n; end++) {
+                currentXOR ^= features[end];
+                totalXOR ^= currentXOR;
             }
         }
         
-        // Print the final result
-        System.out.println(result);
+        // Output the result
+        System.out.println(totalXOR);
+        
+        scanner.close();
     }
 }
